@@ -1,8 +1,10 @@
 import express, { response } from 'express';
 import mongoose from 'mongoose'
 import { MachineDetails } from './Dbfile.js';
+import cors from 'cors'
 
 const app=express();
+app.use(cors())
 
 app.use(express.json());
 
@@ -15,15 +17,15 @@ const connectDb = async()=>{
     }
 }
 
-app.get("/hello",async(request,response)=>{
-    try{
-        response.send("Hello Pratik");
-    } catch(error){
-        response.send(error)
-    }
-})
+// app.get("/hello",async(request,response)=>{
+//     try{
+//         response.send("Hello Pratik");
+//     } catch(error){
+//         response.send(error)
+//     }
+// })
 
-app.post("/insert",async(request,response)=>{
+app.post("/machine",async(request,response)=>{
     try{
         const reqData=request.body;
         const Details = new MachineDetails(reqData);
@@ -34,7 +36,7 @@ app.post("/insert",async(request,response)=>{
     }
 })
 
-app.get("/readall",async(request,response)=>{
+app.get("/machine",async(request,response)=>{
     try{
         const Details = await MachineDetails.find();
         response.send({Details:Details});
