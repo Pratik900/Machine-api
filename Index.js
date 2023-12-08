@@ -59,7 +59,7 @@ app.get("/reads/:machno",async(request,response)=>{
     }
 })
 
-app.delete("/deletes/:machno",async(request,response)=>{
+app.delete("/machine/:machno",async(request,response)=>{
     try{
         await MachineDetails.deleteOne({machno:request.params.machno});
         response.send({message:'Student deleted'});
