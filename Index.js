@@ -45,7 +45,7 @@ app.get("/machine",async(request,response)=>{
     }
 })
 
-app.get("/reads/:machno",async(request,response)=>{
+app.get("/machine/:machno",async(request,response)=>{
     try{
         const Details = await MachineDetails.findOne({machno:request.params.machno});
         if(Details==null){
@@ -68,7 +68,7 @@ app.delete("/machine/:machno",async(request,response)=>{
     }
 })
 
-app.put("/puts/:machno",async(request,response)=>{
+app.put("/machine/:machno",async(request,response)=>{
     try{
         await MachineDetails.updateOne({machno:request.params.machno},request.body);
         response.send({message:"ok updated"})
@@ -77,6 +77,26 @@ app.put("/puts/:machno",async(request,response)=>{
     }
 })
 
+app.get("/countyes/:working",async(request,response)=>{
+    try{
+        const count = await MachineDetails.countDocuments({
+            working: { $in: ['yes', 'Yes'] }
+        });
+            response.json({ count });
+    }catch(error){
+        response.send('Something not found..!')
+    }
+})
+app.get("/countno/:working",async(request,response)=>{
+    try{
+        const count = await MachineDetails.countDocuments({
+            working: { $in: ['no', 'No'] }
+        });
+            response.json({ count });
+    }catch(error){
+        response.send('Something not found..!')
+    }
+})
 
 app.listen(4900,()=>{
     console.log('Server is running on port 4900');
