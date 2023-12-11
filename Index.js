@@ -1,4 +1,4 @@
-import express, { response } from 'express';
+import express, { response } from 'express'; 
 import mongoose from 'mongoose'
 import { MachineDetails } from './Dbfile.js';
 import cors from 'cors'
@@ -59,7 +59,7 @@ app.post("/admin/login",async(request,response)=>{
         
       const admin = await Admin.findOne({phone:request.body.phone});
       if(admin){
-        if(bcrypt.compareSync(request.body.password,admin.password))
+        if(bcrypt.compareSync(request.body.password,admin.password)) 
         {
             const token=jwt.sign({adminPhone:admin.phone},"secret1234");
             response.send({message: "Login successful",token:token});
@@ -115,7 +115,7 @@ app.get("/machine/:machno",async(request,response)=>{
 
 app.delete("/machine/:machno",async(request,response)=>{
     try{
-        await MachineDetails.deleteOne({machno:request.params.machno});
+        await MachineDetails.deleteOne({machno:request.params.machno}); 
         response.send({message:'Student deleted'});
     } catch(error){
         response.send({message:'something went wrong...!'})
