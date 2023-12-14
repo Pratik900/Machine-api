@@ -24,9 +24,7 @@ function verifyToken(request,response,next){
         response.send({message:"Please login first!"})
     }
     
-    }
-
-
+}
 
 const app=express();
 
